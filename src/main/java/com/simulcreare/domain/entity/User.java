@@ -1,15 +1,18 @@
 package com.simulcreare.domain.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String mail;
     private String passhash;
+
+    @OneToMany(mappedBy = "op")
+    private List<Artwork> artworks;
 
     public Long getId() {
         return id;
@@ -33,5 +36,13 @@ public class User {
 
     public void setPasshash(String passhash) {
         this.passhash = passhash;
+    }
+
+    public List<Artwork> getArtworks() {
+        return artworks;
+    }
+
+    public void setArtworks(List<Artwork> artworks) {
+        this.artworks = artworks;
     }
 }
