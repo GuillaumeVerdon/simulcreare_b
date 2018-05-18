@@ -21,7 +21,7 @@ public class JpaBasicAuthenticationProvider implements AuthenticationProvider {
     private UserRepository userRepository;
 
     @Override
-    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+    public Authentication authenticate(Authentication authentication) {
         String candidateMail = authentication.getPrincipal().toString();
         String candidateRawPassword = authentication.getCredentials().toString();
 
@@ -40,6 +40,6 @@ public class JpaBasicAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return "org.springframework.security.authentication.UsernamePasswordAuthenticationToken".equals(aClass.getName());
+        return UsernamePasswordAuthenticationToken.class.equals(aClass);
     }
 }

@@ -18,6 +18,10 @@ public class BasicUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         com.simulcreare.domain.entity.User userDAO = userRepository.findOneByMail(username);
 
+        if(userDAO == null) {
+            throw new UsernameNotFoundException("The user with username " + username + " wasn't found");
+        }
+
         return new User(userDAO.getMail(), userDAO.getPasshash(), null);
     }
 }
