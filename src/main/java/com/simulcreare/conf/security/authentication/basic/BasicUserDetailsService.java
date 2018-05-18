@@ -15,7 +15,7 @@ public class BasicUserDetailsService implements UserDetailsService {
     private UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) {
         com.simulcreare.domain.entity.User userDAO = userRepository.findOneByMail(username);
 
         if(userDAO == null) {
