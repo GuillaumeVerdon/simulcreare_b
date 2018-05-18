@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
 
 @Configuration
 public class BasicAuthenticationSecurityAdapter extends WebSecurityConfigurerAdapter {
@@ -28,9 +27,14 @@ public class BasicAuthenticationSecurityAdapter extends WebSecurityConfigurerAda
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().authenticated()
-                .and()
-                .httpBasic()
+        http
+            .csrf().disable()
+            .authorizeRequests()
+            .antMatchers("/register").permitAll()
+            .antMatchers("/h2/**").permitAll()
+            .antMatchers("/login").permitAll()
+            .anyRequest().authenticated()
+            .and().httpBasic()
         ;
     }
 }
